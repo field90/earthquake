@@ -10,8 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mikef.earthquakeapp.data.Features
+import com.mikef.earthquakeapp.data.Geometry
+import com.mikef.earthquakeapp.data.Properties
 
 @Composable
 fun EarthquakeRow(quake: Features, modifier: Modifier = Modifier) {
@@ -50,5 +53,93 @@ fun EarthquakeRow(quake: Features, modifier: Modifier = Modifier) {
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun EarthquakeRowPreview() {
+
+
+    val sampleQuakeGreen = Features(
+        id = "earthquake-1preview",
+        properties = Properties(
+            mag = 0.5,
+            place = "Maui, Hawaii",
+            time = System.currentTimeMillis(),
+            url = "",
+            title = "M 1.5 - Maui, Hawaii",
+        ),
+        geometry = Geometry(
+            type = "Point",
+            coordinates =arrayListOf(-122.3, 37.8, 10.0)
+        )
+    )
+
+    val sampleQuakeYellow = Features(
+        id = "earthquake-1preview",
+        properties = Properties(
+            mag = 1.5,
+            place = "Maui, Hawaii",
+            time = System.currentTimeMillis(),
+            url = "",
+            title = "M 1.5 - Maui, Hawaii",
+        ),
+        geometry = Geometry(
+            type = "Point",
+            coordinates =arrayListOf(-122.3, 37.8, 10.0)
+        )
+    )
+
+    val sampleQuakeOrange = Features(
+        id = "earthquake-1preview",
+        properties = Properties(
+            mag = 4.0,
+            place = "Maui, Hawaii",
+            time = System.currentTimeMillis(),
+            url = "",
+            title = "M 1.5 - Maui, Hawaii",
+        ),
+        geometry = Geometry(
+            type = "Point",
+            coordinates =arrayListOf(-122.3, 37.8, 10.0)
+        )
+    )
+
+    val sampleQuakeHeavyOrange = Features(
+        id = "earthquake-1preview",
+        properties = Properties(
+            mag = 6.0,
+            place = "Maui, Hawaii",
+            time = System.currentTimeMillis(),
+            url = "",
+            title = "M 1.5 - Maui, Hawaii",
+        ),
+        geometry = Geometry(
+            type = "Point",
+            coordinates =arrayListOf(-122.3, 37.8, 10.0)
+        )
+    )
+    val sampleQuakeRed = Features(
+        id = "earthquake-1preview",
+        properties = Properties(
+            mag = 8.5,
+            place = "Maui, Hawaii",
+            time = System.currentTimeMillis(),
+            url = "",
+            title = "M 8.5 - Maui, Hawaii",
+        ),
+        geometry = Geometry(
+            type = "Point",
+            coordinates =arrayListOf(-122.3, 37.8, 10.0)
+        )
+    )
+
+    Column {
+        EarthquakeRow(quake = sampleQuakeGreen)
+        EarthquakeRow(quake = sampleQuakeYellow)
+        EarthquakeRow(quake = sampleQuakeOrange)
+        EarthquakeRow(quake = sampleQuakeHeavyOrange)
+        EarthquakeRow(quake = sampleQuakeRed)
     }
 }
