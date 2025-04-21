@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.mikef.earthquakeapp.ui.screens.EarthquakeSummaryScreen
 import com.mikef.earthquakeapp.ui.theme.EarthquakeAppTheme
 import com.mikef.earthquakeapp.vm.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,10 +28,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             EarthquakeAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Earthquake",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    EarthquakeSummaryScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
