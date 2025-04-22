@@ -29,7 +29,7 @@ class MainViewModel @Inject constructor(
         refreshEarthquakes()
     }
 
-    private fun refreshEarthquakes() {
+    fun refreshEarthquakes() {
         viewModelScope.launch {
             try {
                 _loading.value = true
