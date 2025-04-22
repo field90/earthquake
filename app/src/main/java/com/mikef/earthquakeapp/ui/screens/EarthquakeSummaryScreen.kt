@@ -19,6 +19,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mikef.earthquakeapp.vm.MainViewModel
 import com.mikef.earthquakeapp.ui.composables.EarthquakeRow
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EarthquakeSummaryScreen(
@@ -55,23 +57,34 @@ fun EarthquakeSummaryScreen(
             )
         }
     ) { innerPadding ->
-        if (loading) {
-            Box(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
-        } else {
-            LazyColumn(
-                modifier = modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-            ) {
-                items(earthquakes) { quake ->
-                    EarthquakeRow(quake, viewModel = viewModel)
+
+        val refreshState = rememberSwipeRefreshState(isRefreshing = loading)
+
+        SwipeRefresh(
+            state = refreshState,
+            onRefresh = { viewModel.refreshEarthquakes() },
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding) // ✅ padding from Scaffold
+        ) {
+            if (loading && earthquakes.isEmpty()) {
+                Box(
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(innerPadding),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            } else {
+                LazyColumn(
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)
+                ) {
+                    items(earthquakes) { quake ->
+                        EarthquakeRow(quake, viewModel = viewModel)
+                    }
                 }
             }
         }
