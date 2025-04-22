@@ -42,7 +42,7 @@ class MainViewModel @Inject constructor(
             }
         }
     }
-    fun selectEarthquake(quake: Features) {
+    fun selectEarthquake(quake: Features?) {
         _selectedQuake.value = quake
     }
 }

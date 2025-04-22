@@ -52,6 +52,7 @@ class MainActivity : ComponentActivity() {
 
                         composable("detail") {
                                 EarthquakeDetailScreen(
+                                    navController = navController,
                                     viewModel = viewModel,
                                 )
                             }

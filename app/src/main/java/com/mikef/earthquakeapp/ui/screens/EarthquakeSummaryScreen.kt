@@ -31,7 +31,6 @@ fun EarthquakeSummaryScreen(
         }
     }
 
-    Text("LOADED") // <--- just to confirm it's drawing at all
 
     if (loading) {
         Box(modifier.fillMaxSize()) {

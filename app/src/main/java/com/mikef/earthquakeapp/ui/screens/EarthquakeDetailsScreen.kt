@@ -24,12 +24,6 @@ fun EarthquakeDetailScreen(
 ) {
     val earthquake by viewModel.selectedQuake.collectAsState()
 
-    if (earthquake == null) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("No earthquake selected.")
-        }
-        return
-    }
 
     val lat = earthquake?.geometry?.coordinates?.getOrNull(1) ?: 0.0
     val lon = earthquake?.geometry?.coordinates?.getOrNull(0) ?: 0.0
@@ -49,7 +43,10 @@ fun EarthquakeDetailScreen(
             TopAppBar(
                 title = { Text("Earthquake Details") },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = {
+                        viewModel.selectEarthquake(null)
+                        navController.popBackStack()
+                    }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Back"
@@ -86,7 +83,7 @@ fun EarthquakeDetailScreen(
                 }
             }
 
-            Divider(modifier = Modifier.padding(horizontal = 16.dp))
+            HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
 
             GoogleMap(
                 modifier = Modifier
