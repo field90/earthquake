@@ -22,6 +22,9 @@ class MainViewModel @Inject constructor(
     private val _loading = MutableStateFlow(false)
     val loading: StateFlow<Boolean> = _loading
 
+    private val _selectedQuake = MutableStateFlow<Features?>(null)
+    val selectedQuake: StateFlow<Features?> = _selectedQuake
+
     init {
         refreshEarthquakes()
     }
@@ -38,5 +41,8 @@ class MainViewModel @Inject constructor(
                 _loading.value = false
             }
         }
+    }
+    fun selectEarthquake(quake: Features) {
+        _selectedQuake.value = quake
     }
 }

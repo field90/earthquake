@@ -12,12 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.mikef.earthquakeapp.data.Features
 import com.mikef.earthquakeapp.data.Geometry
 import com.mikef.earthquakeapp.data.Properties
+import com.mikef.earthquakeapp.vm.MainViewModel
 
 @Composable
-fun EarthquakeRow(quake: Features, modifier: Modifier = Modifier) {
+fun EarthquakeRow(
+    quake: Features, modifier: Modifier = Modifier, viewModel: MainViewModel = hiltViewModel(),
+) {
     val mag = quake.properties?.mag ?: 0.0
     val place = quake.properties?.place ?: "Unknown location"
 
@@ -34,7 +38,7 @@ fun EarthquakeRow(quake: Features, modifier: Modifier = Modifier) {
             .fillMaxWidth()
             .padding(8.dp)
             .clickable {
-                // TODO add Details Screen
+                viewModel.selectEarthquake(quake)
             },
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
@@ -72,7 +76,7 @@ fun EarthquakeRowPreview() {
         ),
         geometry = Geometry(
             type = "Point",
-            coordinates =arrayListOf(-122.3, 37.8, 10.0)
+            coordinates = arrayListOf(-122.3, 37.8, 10.0)
         )
     )
 
@@ -87,7 +91,7 @@ fun EarthquakeRowPreview() {
         ),
         geometry = Geometry(
             type = "Point",
-            coordinates =arrayListOf(-122.3, 37.8, 10.0)
+            coordinates = arrayListOf(-122.3, 37.8, 10.0)
         )
     )
 
@@ -102,7 +106,7 @@ fun EarthquakeRowPreview() {
         ),
         geometry = Geometry(
             type = "Point",
-            coordinates =arrayListOf(-122.3, 37.8, 10.0)
+            coordinates = arrayListOf(-122.3, 37.8, 10.0)
         )
     )
 
@@ -117,7 +121,7 @@ fun EarthquakeRowPreview() {
         ),
         geometry = Geometry(
             type = "Point",
-            coordinates =arrayListOf(-122.3, 37.8, 10.0)
+            coordinates = arrayListOf(-122.3, 37.8, 10.0)
         )
     )
     val sampleQuakeRed = Features(
@@ -131,15 +135,15 @@ fun EarthquakeRowPreview() {
         ),
         geometry = Geometry(
             type = "Point",
-            coordinates =arrayListOf(-122.3, 37.8, 10.0)
+            coordinates = arrayListOf(-122.3, 37.8, 10.0)
         )
     )
 
     Column {
-        EarthquakeRow(quake = sampleQuakeGreen)
-        EarthquakeRow(quake = sampleQuakeYellow)
-        EarthquakeRow(quake = sampleQuakeOrange)
-        EarthquakeRow(quake = sampleQuakeHeavyOrange)
-        EarthquakeRow(quake = sampleQuakeRed)
+        /*   EarthquakeRow(quake = sampleQuakeGreen)
+           EarthquakeRow(quake = sampleQuakeYellow)
+           EarthquakeRow(quake = sampleQuakeOrange)
+           EarthquakeRow(quake = sampleQuakeHeavyOrange)
+           EarthquakeRow(quake = sampleQuakeRed)*/
     }
 }

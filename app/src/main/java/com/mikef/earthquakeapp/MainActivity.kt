@@ -14,6 +14,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.mikef.earthquakeapp.data.Features
+import com.mikef.earthquakeapp.ui.screens.EarthquakeDetailScreen
 import com.mikef.earthquakeapp.ui.screens.EarthquakeSummaryScreen
 import com.mikef.earthquakeapp.ui.theme.EarthquakeAppTheme
 import com.mikef.earthquakeapp.vm.MainViewModel
@@ -27,32 +32,32 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             EarthquakeAppTheme {
+                val navController = rememberNavController()
+
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    EarthquakeSummaryScreen(modifier = Modifier.padding(innerPadding))
+
+                    val viewModel: MainViewModel = hiltViewModel() // <-- Activity-scoped
+                    NavHost(
+                        navController = navController,
+                        startDestination = "summary",
+                        modifier = Modifier.padding(innerPadding)
+                    ) {
+                        composable("summary") {
+                            EarthquakeSummaryScreen(
+                                modifier = Modifier.fillMaxSize(),
+                                navController = navController,
+                                viewModel = viewModel
+                            )
+                        }
+
+                        composable("detail") {
+                                EarthquakeDetailScreen(
+                                    viewModel = viewModel,
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier, viewModel: MainViewModel = hiltViewModel()) {
-    val earthquakes by viewModel.earthquakes.collectAsState()
-
-    if (earthquakes.isEmpty()) {
-        Text(text = "Loading...", modifier = modifier)
-    } else {
-        Text(
-            text = "First quake: ${earthquakes[0].properties?.place ?: "Unknown"}",
-            modifier = modifier
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    EarthquakeAppTheme {
-        Greeting("Android")
-    }
-}

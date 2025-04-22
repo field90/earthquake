@@ -16,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EarthquakeApp"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAvqjf1fvxGy0_rR30FhXLYrhG5aioEHws" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
