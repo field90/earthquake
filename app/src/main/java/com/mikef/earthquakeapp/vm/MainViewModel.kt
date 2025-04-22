@@ -45,4 +45,18 @@ class MainViewModel @Inject constructor(
     fun selectEarthquake(quake: Features?) {
         _selectedQuake.value = quake
     }
+
+    fun selectQuakeByDetailUrl(url: String) {
+        viewModelScope.launch {
+            try {
+                _loading.value = true
+                val quake = repository.fetchEarthquakeDetailFromUrl(url)
+                _selectedQuake.value = quake
+            } catch (e: Exception) {
+                Log.e("MainViewModel", "Failed to load quake detail: $e")
+            } finally {
+                _loading.value = false
+            }
+        }
+    }
 }

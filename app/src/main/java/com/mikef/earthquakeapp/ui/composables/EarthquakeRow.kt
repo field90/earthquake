@@ -38,8 +38,9 @@ fun EarthquakeRow(
             .fillMaxWidth()
             .padding(8.dp)
             .clickable {
-                viewModel.selectEarthquake(quake)
-            },
+                quake.properties?.detail?.let { detailUrl ->
+                    viewModel.selectQuakeByDetailUrl(detailUrl)
+                }            },
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Row(
